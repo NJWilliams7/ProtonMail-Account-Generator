@@ -5,16 +5,11 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver import ActionChains
 import string
 import secrets
-import re
 from random import randint
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
-from selenium.common.exceptions import TimeoutException
 import random
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
@@ -63,17 +58,15 @@ options.add_argument("disable-infobars")
 options.add_argument("--disable-extensions")
 time.sleep(8)
 
-#input username
+#input username #does not input correctly, appears jumbled/need to fix
 from selenium.webdriver.common.action_chains import ActionChains
 actions = ActionChains(driver)
 actions.send_keys(username_vf)
 actions.perform()
 
 #input passwords
-#driver.find_element_by_id('password').send_keys(password)
 driver.find_element(by=By.ID, value='password').send_keys(password)
 time.sleep(1)
-#driver.find_element_by_id('repeat-password').send_keys(password)
 driver.find_element(by=By.ID, value='repeat-password').send_keys(password)
 time.sleep(1)
 driver.find_element(by=By.XPATH, value="//button[contains(text(),'Next')]").click()
