@@ -44,7 +44,7 @@ random_int = randint(111111,999999)
 txt_file.write("username: "+ username + str(random_int) + " password: " + password)
 txt_file.write("\n")
 txt_file.close()
-username_vf = username+str(random_int)
+username_vf = username#+str(random_int)
 
 time.sleep(1)
 
@@ -58,11 +58,16 @@ options.add_argument("disable-infobars")
 options.add_argument("--disable-extensions")
 time.sleep(8)
 
-#input username #does not input correctly, appears jumbled/need to fix
+#input username
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
+
 actions = ActionChains(driver)
-actions.send_keys(username_vf)
-actions.perform()
+text = username_vf
+for character in text:
+    actions.send_keys(character)
+    actions.perform()
+    time.sleep(0.3) # pause for 0.3 seconds
 
 #input passwords
 driver.find_element(by=By.ID, value='password').send_keys(password)
@@ -85,6 +90,8 @@ options.add_argument("start-maximized")
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option('useAutomationExtension', False)
 
-WebDriverWait(driver,10).until(EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR,"iframe[title='Captcha']"))) 
-WebDriverWait(driver,10).until(EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR,"iframe[title='widget containing checkbox for hCaptcha security challenge']")))
-WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "username"))).click()
+driver.find_element_by_xpath('//button[@id="checkbox")]').click()
+
+#WebDriverWait(driver,10).until(EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR,"iframe[title='Captcha']"))) 
+#WebDriverWait(driver,10).until(EC.frame_to_be_available_and_switch_to_it((By.CSS_SELECTOR,"iframe[title='widget containing checkbox for hCaptcha security challenge']")))
+#WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "username"))).click()
